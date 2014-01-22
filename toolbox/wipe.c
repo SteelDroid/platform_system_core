@@ -12,7 +12,6 @@
 #define PATH_MAX 4096
 #endif
 
-
 /* Directories created by init defined in system/rootdir/init.rc */
 static char *INIT_DIRS[] = {
     "/system/etc/ppp",
@@ -58,17 +57,17 @@ int wipe_main (int argc, char *argv[])
         wipe ("/data");
         fprintf(stdout, "Done wiping /system and /data\n");
     } else if (0 == strcmp(whatToWipe, "nuke")) {
-		int ret;
-		fprintf(stdout, "Nuking the device...\n");
-		wipe ("/system");
+        int ret;
+        fprintf(stdout, "Nuking the device...\n");
+        wipe ("/system");
         wipe ("/data");
-		fprintf(stdout, "Device nuked! Rebooting...\n");
-		ret = reboot(RB_AUTOBOOT);
-	    if (ret < 0) {
-	        fprintf(stderr, "Reboot failed, %s\n", strerror(errno));
-	        return 1;
-	    }
-	} else {
+        fprintf(stdout, "Device nuked! Rebooting...\n");
+        ret = reboot(RB_AUTOBOOT);
+        if (ret < 0) {
+            fprintf(stderr, "Reboot failed, %s\n", strerror(errno));
+            return 1;
+        }
+    } else {
         return usage();
     }
 
@@ -78,7 +77,7 @@ int wipe_main (int argc, char *argv[])
 static char nameBuffer[PATH_MAX];
 static struct stat statBuffer;
 
-static void wipe (const char *path) 
+static void wipe (const char *path)
 {
     DIR *dir;
     struct dirent *de;
@@ -118,7 +117,7 @@ static void wipe (const char *path)
         ret = lstat (nameBuffer, &statBuffer);
 
         if (ret != 0) {
-            fprintf(stderr, "stat() error on '%s' '%s'\n", 
+            fprintf(stderr, "stat() error on '%s' '%s'\n",
                     nameBuffer, strerror(errno));
         }
 
@@ -142,7 +141,7 @@ static void wipe (const char *path)
             if (INIT_DIRS[i] == NULL) {
                 ret = rmdir(newpath);
                 if (ret != 0) {
-                    fprintf(stderr, "rmdir() error on '%s' '%s'\n", 
+                    fprintf(stderr, "rmdir() error on '%s' '%s'\n",
                         newpath, strerror(errno));
                 }
             }
@@ -165,7 +164,7 @@ static void wipe (const char *path)
             ret = unlink(nameBuffer);
 
             if (ret != 0) {
-                fprintf(stderr, "unlink() error on '%s' '%s'\n", 
+                fprintf(stderr, "unlink() error on '%s' '%s'\n",
                     nameBuffer, strerror(errno));
             }
         }
