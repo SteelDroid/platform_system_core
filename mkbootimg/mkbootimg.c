@@ -224,7 +224,7 @@ int main(int argc, char **argv)
     SHA_init(&ctx);
     SHA_update(&ctx, kernel_data, (int)hdr.kernel_size);
     SHA_update(&ctx, &hdr.kernel_size, (int)sizeof(hdr.kernel_size));
-    SHA_update(&ctx, ramdisk_data, hdr.ramdisk_size);
+    SHA_update(&ctx, ramdisk_data, (int)hdr.ramdisk_size);
     SHA_update(&ctx, &hdr.ramdisk_size, (int)sizeof(hdr.ramdisk_size));
     SHA_update(&ctx, second_data, (int)hdr.second_size);
     SHA_update(&ctx, &hdr.second_size, (int)sizeof(hdr.second_size));

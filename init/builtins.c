@@ -367,6 +367,7 @@ int do_mount(int nargs, char **args)
             sprintf(tmp, "/dev/block/loop%d", n);
             loop = open(tmp, mode);
             if (loop < 0) {
+                close(fd);
                 return -1;
             }
 
@@ -606,4 +607,3 @@ int do_wait(int nargs, char **args)
 int do_umount(int nargs, char **args) {
     return umount(args[1]);
 }
-
